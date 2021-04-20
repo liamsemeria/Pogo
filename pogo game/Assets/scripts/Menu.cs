@@ -42,8 +42,8 @@ public class Menu : MonoBehaviour
                 else options[i].color = textcol;
             }
             // traverse menu (circular)
-            if (Input.GetKeyDown(slash.Down)) selectedindex++;
-            if (Input.GetKeyDown(slash.Up)) selectedindex--;
+            if (Input.GetKeyDown(slash.Up)) selectedindex++;
+            if (Input.GetKeyDown(slash.Down)) selectedindex--;
             if (selectedindex == options.Count) selectedindex = 0;
             if (selectedindex == -1) selectedindex = options.Count - 1;
 
