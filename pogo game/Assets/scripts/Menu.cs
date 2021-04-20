@@ -10,21 +10,29 @@ public class Menu : MonoBehaviour
     int selectedindex = 0;
     bool flip = false;
     GameObject player;
+    GameObject settings;
     Color32 textcol;
     Color32 highlight;
+    bool updatedControls = false;
     // player rigidbody
     // Start is called before the first frame update
     void Start()
     {
         close();
         player = GameObject.FindWithTag("Player");
-        textcol = new Color32(255,220,220,255);
-        highlight = new Color32(255,65,65,255);
+        textcol = new Color32(255, 220, 220, 255);
+        highlight = new Color32(255, 65, 65, 255);
+        settings = GameObject.FindWithTag("settings");
     }
-
     // Update is called once per frame
     void Update()
     {
+        if (!updatedControls)
+        {
+            setControls(settings.transform.position);
+            updatedControls = true;
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape)) open();
 
         if (isOpen)
@@ -92,7 +100,33 @@ public class Menu : MonoBehaviour
 
     void flipControls()
     {
-        if (slash.Up != KeyCode.UpArrow)
+        if (settings.transform.position != Vector3.zero)
+        {
+            slash.Left = KeyCode.LeftArrow;
+            slash.Right = KeyCode.RightArrow;
+            slash.Up = KeyCode.UpArrow;
+            slash.Down = KeyCode.DownArrow;
+            slash.MoveLeft = KeyCode.A;
+            slash.MoveRight = KeyCode.D;
+            slash.Slash = KeyCode.S;
+            settings.transform.position = Vector3.zero;
+        }
+        else
+        {
+            slash.Left = KeyCode.A;
+            slash.Right = KeyCode.D;
+            slash.Up = KeyCode.W;
+            slash.Down = KeyCode.S;
+            slash.MoveLeft = KeyCode.LeftArrow;
+            slash.MoveRight = KeyCode.RightArrow;
+            slash.Slash = KeyCode.DownArrow;
+            settings.transform.position = Vector3.right;
+        }
+    }
+
+    void setControls(Vector3 setting)
+    {
+        if (setting==Vector3.zero)
         {
             slash.Left = KeyCode.LeftArrow;
             slash.Right = KeyCode.RightArrow;

@@ -10,14 +10,17 @@ public class sceneLoader : MonoBehaviour
     public static GameObject counter; // the gameobject representing what levels player has unlocked
     Animator animator;
     AudioSource song;
+    GameObject settings;
     Time gametime;
     // Start is called before the first frame update
     void Awake()
     {
         counter = GameObject.FindWithTag("counter");
         song = GameObject.FindWithTag("song").GetComponent<AudioSource>();
+        settings = GameObject.FindWithTag("settings");
         DontDestroyOnLoad(song);
         DontDestroyOnLoad(counter);
+        DontDestroyOnLoad(settings);
 
     }
     void Start()

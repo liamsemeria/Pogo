@@ -13,6 +13,7 @@ TagManager:
   - win
   - trink
   - tutor
+  - settings
   layers:
   - Default
   - TransparentFX
