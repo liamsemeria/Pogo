@@ -109,7 +109,7 @@ public class slashCam : MonoBehaviour
         // VERTICAL TRACKING
         verticalPull = Vector3.MoveTowards(transform.position, targetpos, vertiSpeed * Time.deltaTime);
         // camera can only move within its constraints
-        if ((camConstraints.y <= transform.position.y) && (transform.position.y <= camConstraints.z))
+        if ((camConstraints.y <= transform.position.y) && (transform.position.y < camConstraints.z))
             verticalFollow = Vector3.MoveTowards(transform.position, targetpos, vertiSpeed * Time.deltaTime);
         // if the camera reaches an edge and the player is giving it room again, allow it to move
         // if the horizontalPull is greater than it was when the camera froze, then the player isnt at the max camera location anymore

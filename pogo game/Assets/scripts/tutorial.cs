@@ -29,8 +29,8 @@ public class tutorial : MonoBehaviour
         {
 
 
-                if (show) prompter.text = "use A and D to move on the ground and in the air";
-                if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D)) && show) StartCoroutine(delaystep());
+                if (show) prompter.text = "use the arrow keys to move on the ground and in the air";
+                if ((Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow)) && show) StartCoroutine(delaystep());
                 if (slash.inputAim && Input.GetKeyDown(slash.Slash) && finished)
                 {
                     prompter.text = "";
@@ -46,7 +46,7 @@ public class tutorial : MonoBehaviour
         prompter.text = "";
         show = false;
         yield return new WaitForSeconds(3);
-        prompter.text = "use the arrow keys to angle your pogo and (s) to use it";
+        prompter.text = "use the arrow keys to angle your reticle and (c) to boost in the opposite direction";
         finished = true;
 
     }

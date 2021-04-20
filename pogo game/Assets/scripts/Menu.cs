@@ -11,6 +11,7 @@ public class Menu : MonoBehaviour
     bool flip = false;
     GameObject player;
     GameObject settings;
+    GameObject counter;
     Color32 textcol;
     Color32 highlight;
     bool updatedControls = false;
@@ -23,15 +24,11 @@ public class Menu : MonoBehaviour
         textcol = new Color32(255, 220, 220, 255);
         highlight = new Color32(255, 65, 65, 255);
         settings = GameObject.FindWithTag("settings");
+        counter = GameObject.FindWithTag("counter");
     }
     // Update is called once per frame
     void Update()
     {
-        if (!updatedControls)
-        {
-            setControls(settings.transform.position);
-            updatedControls = true;
-        }
 
         if (Input.GetKeyDown(KeyCode.Escape)) open();
 
@@ -62,8 +59,9 @@ public class Menu : MonoBehaviour
                         close();
                         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                         break;
-                    case 2: // flip controls
-                        flip = true;
+                    case 2: // reset game
+                        counter.transform.position = Vector3.zero;
+                        SceneManager.LoadScene(0);
                         break;
                     case 3: // exit game
                         Application.Quit();
@@ -124,28 +122,5 @@ public class Menu : MonoBehaviour
         }
     }
 
-    void setControls(Vector3 setting)
-    {
-        if (setting==Vector3.zero)
-        {
-            slash.Left = KeyCode.LeftArrow;
-            slash.Right = KeyCode.RightArrow;
-            slash.Up = KeyCode.UpArrow;
-            slash.Down = KeyCode.DownArrow;
-            slash.MoveLeft = KeyCode.A;
-            slash.MoveRight = KeyCode.D;
-            slash.Slash = KeyCode.S;
-        }
-        else
-        {
-            slash.Left = KeyCode.A;
-            slash.Right = KeyCode.D;
-            slash.Up = KeyCode.W;
-            slash.Down = KeyCode.S;
-            slash.MoveLeft = KeyCode.LeftArrow;
-            slash.MoveRight = KeyCode.RightArrow;
-            slash.Slash = KeyCode.DownArrow;
-        }
-    }
 
 }

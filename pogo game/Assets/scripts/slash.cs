@@ -9,7 +9,7 @@ public class slash : MonoBehaviour
     // script for all player movement, slash move, animations, and death logic
     public Animator animator;
     private Animator playerA;
-    public float moveSpeed;
+    public float moveSpeed; // was 5
     public int slashPower;
     public Transform slashpt;
     public Transform hitbox;
@@ -65,14 +65,16 @@ public class slash : MonoBehaviour
         playerA = GetComponent<Animator>();
         colhead = GetComponent<Collider2D>();
         colfeet = GetComponents<Collider2D>()[1];
-        Left = KeyCode.LeftArrow;
-        Right = KeyCode.RightArrow;
-        Up = KeyCode.UpArrow;
-        Down = KeyCode.DownArrow;
-        MoveLeft = KeyCode.A;
-        MoveRight = KeyCode.D;
-        Slash = KeyCode.S;
+        Left = KeyCode.RightArrow;
+        Right = KeyCode.LeftArrow;
+        Up = KeyCode.DownArrow;
+        Down = KeyCode.UpArrow;
+        MoveLeft = KeyCode.LeftArrow;
+        MoveRight = KeyCode.RightArrow;
+        Slash = KeyCode.C;
 
+        moveSpeed = 3.95f;
+        slashPower = 549;
 
         frame = 0;
         stime = 0;
@@ -93,8 +95,11 @@ public class slash : MonoBehaviour
         //if (Input.GetAxis("HorizontalAim") > 0) Debug.Log("right");
         //if (Input.GetAxis("HorizontalAim") < 0) Debug.Log("left");
         // toggle death mode
-        // reset level
-
+        // change idle animation based on facing
+        if (Input.GetKey(Down)) playerA.SetBool("facingup",true);
+        else playerA.SetBool("facingup", false);
+        if (Input.GetKey(Up)) playerA.SetBool("facingdown", true);
+        else playerA.SetBool("facingdown", false);
 
         //dying logic
 
@@ -127,8 +132,7 @@ public class slash : MonoBehaviour
             if (Input.GetKey(MoveRight)) transform.Translate(Time.deltaTime * moveSpeed, 0f, 0f);
             if (Input.GetKey(MoveLeft)) transform.Translate(Time.deltaTime * -moveSpeed, 0f, 0f);
         }
-
-
+        netpt = Vector2.zero;
         // find the orientation for the slash point by adding up the directional inputs
         if (Input.GetKey(Up))
         {
@@ -169,13 +173,15 @@ public class slash : MonoBehaviour
         playerA.SetFloat("velocity", rb.velocity.x);
         if (rb.velocity.x == 0)
         {
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKey(MoveRight))
             {
-                playerA.SetFloat("velocity", 1);
+                //playerA.SetFloat("velocity", 1);
+                gameObject.GetComponent<SpriteRenderer>().flipX = false;
             }
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKey(MoveLeft))
             {
-                playerA.SetFloat("velocity", -1);
+                //playerA.SetFloat("velocity", -1);
+                gameObject.GetComponent<SpriteRenderer>().flipX = true;
             }
         }
         // slash input
@@ -201,6 +207,7 @@ public class slash : MonoBehaviour
             slashReader.canJump = false;
             // was 450
             rb.AddForce(netpt * -slashPower);
+            netpt = Vector2.zero; // ADDED
         }
 
         if (buffering)
