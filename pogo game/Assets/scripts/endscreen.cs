@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class endscreen : MonoBehaviour
 {
     public List<Text> items;
@@ -40,5 +41,10 @@ public class endscreen : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            counter.transform.position = Vector3.zero;
+            SceneManager.LoadScene(0);
+        }
     }
 }

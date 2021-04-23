@@ -203,7 +203,7 @@ public class slash : MonoBehaviour
             hit.Play();
             slashing = true;
             slashmoving = true;
-            rb.velocity *= Vector2.right * .75f;
+            rb.velocity *= Vector2.right * .77f;
             slashReader.canJump = false;
             // was 450
             rb.AddForce(netpt * -slashPower);

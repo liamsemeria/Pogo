@@ -15,14 +15,16 @@ public class Menu : MonoBehaviour
     Color32 textcol;
     Color32 highlight;
     bool updatedControls = false;
+    public bool isMain = false;
     // player rigidbody
     // Start is called before the first frame update
     void Start()
     {
-        close();
+        if (!isMain) close();
+        else open();
         player = GameObject.FindWithTag("Player");
         textcol = new Color32(255, 220, 220, 255);
-        highlight = new Color32(255, 65, 65, 255);
+        highlight = new Color32(185, 0, 0, 255);
         settings = GameObject.FindWithTag("settings");
         counter = GameObject.FindWithTag("counter");
     }
@@ -42,34 +44,39 @@ public class Menu : MonoBehaviour
                 else options[i].color = textcol;
             }
             // traverse menu (circular)
-            if (Input.GetKeyDown(slash.Up)) selectedindex++;
-            if (Input.GetKeyDown(slash.Down)) selectedindex--;
+            if (Input.GetKeyDown(KeyCode.DownArrow)) selectedindex++;
+            if (Input.GetKeyDown(KeyCode.UpArrow)) selectedindex--;
             if (selectedindex == options.Count) selectedindex = 0;
             if (selectedindex == -1) selectedindex = options.Count - 1;
 
-            if (Input.GetKeyDown(slash.Slash) && (selectedindex != -1))
+            if (Input.GetKeyDown(KeyCode.C) && (selectedindex != -1))
             {
                 switch (selectedindex)
                 {
-                    case 0: // continue
-                        close();
+                    case 0: // game: continue main: start
+                        if (isMain)
+                        {
+                            SceneManager.LoadScene(1);
+                        }
+                        else close();
                         break;
-                    case 1: // retry
-                        player.transform.position = slash.startpt;
+                    case 1: // game: retry main: exit
+                        if (isMain) Application.Quit();
+                        else player.transform.position = slash.startpt;
                         close();
                         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                         break;
                     case 2: // reset game
                         counter.transform.position = Vector3.zero;
-                        SceneManager.LoadScene(0);
+                        SceneManager.LoadScene(1);
                         break;
-                    case 3: // exit game
-                        Application.Quit();
+                    case 3: // exit to menu
+                        SceneManager.LoadScene(0);
                         break;
                 }
             }
         }
-        
+
     }
 
     void open()
