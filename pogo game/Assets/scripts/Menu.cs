@@ -5,8 +5,10 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class Menu : MonoBehaviour
 {
-    bool isOpen;
+    public static bool isOpen;
     public List<Text> options;
+    List<string> old_options;
+    List<string> selected_options;
     int selectedindex = 0;
     bool flip = false;
     GameObject player;
@@ -16,8 +18,19 @@ public class Menu : MonoBehaviour
     Color32 highlight;
     bool updatedControls = false;
     public bool isMain = false;
-    // player rigidbody
-    // Start is called before the first frame update
+
+    void Awake()
+    {
+        old_options = new List<string>();
+        selected_options = new List<string>();
+        // copy options
+        for (int i = 0; i < options.Count; i++)
+        {
+            old_options.Add(options[i].text);
+            selected_options.Add(options[i].text);
+            selected_options[i] += " (c)";
+        }
+    }
     void Start()
     {
         if (!isMain) close();
@@ -40,8 +53,15 @@ public class Menu : MonoBehaviour
             for (int i = 0; i < options.Count; i++)
             {
                 if (i == selectedindex)
+                {
                     options[i].color = highlight;
-                else options[i].color = textcol;
+                    options[i].text = selected_options[i];
+                }
+                else
+                {
+                    options[i].color = textcol;
+                    options[i].text = old_options[i];
+                }
             }
             // traverse menu (circular)
             if (Input.GetKeyDown(KeyCode.DownArrow)) selectedindex++;

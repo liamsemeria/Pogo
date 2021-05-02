@@ -46,7 +46,7 @@ public class tutorial : MonoBehaviour
         prompter.text = "";
         show = false;
         yield return new WaitForSeconds(3);
-        prompter.text = "use the arrow keys to angle your reticle and (c) to boost in the opposite direction";
+        prompter.text = "use the arrow keys to angle your reticle and (c) to boost in the opposite direction on hit";
         finished = true;
 
     }

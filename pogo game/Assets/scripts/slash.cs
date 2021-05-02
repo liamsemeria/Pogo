@@ -126,7 +126,7 @@ public class slash : MonoBehaviour
         Input.GetKey(Left) || Input.GetKey(Right);
 
         // move left and right
-        if (canTranslate)
+        if (canTranslate && !Menu.isOpen)
         {
             // TODO try to adjust the translate using the rigidnody
             if (Input.GetKey(MoveRight)) transform.Translate(Time.deltaTime * moveSpeed, 0f, 0f);
@@ -150,9 +150,9 @@ public class slash : MonoBehaviour
         {
             netpt += slightRight;
         }
-
+        // make aim zero when menu open
         // reseting values for slash point
-        if (!inputAim)
+        if (!inputAim || Menu.isOpen)
         {
             netpt = Vector2.zero;
         }
