@@ -41,7 +41,6 @@ public class slash : MonoBehaviour
     bool slashmoving;
     int frame;
     float stime;
-    int slashmoveframe;
     float smoveTime;
 
     bool canTranslate = true;
@@ -78,7 +77,6 @@ public class slash : MonoBehaviour
 
         frame = 0;
         stime = 0;
-        slashmoveframe = 0;
         dyingTime = 0;
         slashing = false;
         slashmoving = false;
@@ -236,14 +234,12 @@ public class slash : MonoBehaviour
         }
         if (slashmoving)
             smoveTime += Time.deltaTime;//
-            //slashmoveframe++;
             
 
         if (smoveTime > .188f) // 45
         {
             
             slashmoving = false;
-            slashmoveframe = 0;
             smoveTime = 0;
             rb.velocity *= .4f;
         }

@@ -47,7 +47,7 @@ public class slashCam : MonoBehaviour
         //tiles.cellSize = new Vector3(cam.aspect / 2, 1 , 0);
         camSize = cam.orthographicSize;
         halfscreen = cam.aspect * camSize;
-        
+        Debug.Log(Screen.currentResolution);
     }
 
     // Update is called once per frame

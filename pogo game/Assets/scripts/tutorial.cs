@@ -7,7 +7,6 @@ public class tutorial : MonoBehaviour
 {
     GameObject slot;
     Text prompter;
-    int step = 0;
     bool show = true;
     bool finished  = false;
     public bool isstart;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Screen : MonoBehaviour
+public class ScreenObj : MonoBehaviour
 {
     /// <Rooms>
     ///  The camera follows the player around while staying in the room its in, so the camera needs to know...

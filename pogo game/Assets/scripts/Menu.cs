@@ -16,7 +16,6 @@ public class Menu : MonoBehaviour
     GameObject counter;
     Color32 textcol;
     Color32 highlight;
-    bool updatedControls = false;
     public bool isMain = false;
 
     void Awake()
